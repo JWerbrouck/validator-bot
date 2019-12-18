@@ -1,0 +1,26 @@
+{
+  "name": "validator-bot",
+  "version": "1.0.0",
+  "description": "An API serving as the 'man in the middle' at Solid dynamic ACL mapping (ConSolid project)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon src/app.js"
+  },
+  "author": "Jeroen Werbrouck",
+  "license": "ISC",
+  "dependencies": {
+    "@comunica/actor-init-sparql": "^1.10.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "js-base64": "^2.5.1",
+    "rdflib": "^1.0.6",
+    "shacl-js": "0.0.1",
+    "solid-auth-cli": "^1.0.10"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.0.1",
+    "nodemon": "^2.0.2"
+  }
+}
