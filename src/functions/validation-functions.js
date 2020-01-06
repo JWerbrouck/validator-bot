@@ -26,7 +26,8 @@ exports.fetchResource = async (req, res) => {
 
     let loginValidation = await solid.auth.login(visitor).catch(e => res.json({ error: "Error logging in for the visitor: " + e }))
 
-    //login with the credentials of the bot
+    // login with the credentials of the bot
+    // make sure OpenSSL is installed and added to the %PATH%
     let login = await solid.auth.login(project).catch(e => res.json({ error: "Error logging in for the bot: " + e }))
 
     // get ACL of the requested file
@@ -46,6 +47,10 @@ exports.fetchResource = async (req, res) => {
     // if applicable, set the correct Authorization in a persistent rule in the ACL file
 
     // if Read access is granted, also return the TTL file
+    if (finalDecision.grantedRights.includes(ACL('Read').value)){
+        let file = await fetchFile(req.body.requestedResource)
+        finalDecision['Document'] = file
+    }
 
     res.json(finalDecision)
 }
@@ -236,4 +241,10 @@ const decide = (rules) => {
         return { message: "Access denied. You do not conform to all requirements to get access to this resource." }
     }
 
+}
+
+const fetchFile = async (url) => {
+    const document = await solid.auth.fetch(url).catch(e => console.log("Error fetching document: " + e))
+    const text = await document.text().catch(e => res.json({ error: "Error parsing: " + e }))
+    return text
 }
