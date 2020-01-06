@@ -47,9 +47,11 @@ exports.fetchResource = async (req, res) => {
     // if applicable, set the correct Authorization in a persistent rule in the ACL file
 
     // if Read access is granted, also return the TTL file
-    if (finalDecision.grantedRights.includes(ACL('Read').value)){
-        let file = await fetchFile(req.body.requestedResource)
-        finalDecision['Document'] = file
+    if (finalDecision.grantedRights) {
+        if (finalDecision.grantedRights.includes(ACL('Read').value)){
+            let file = await fetchFile(req.body.requestedResource)
+            finalDecision['Document'] = file
+        }
     }
 
     res.json(finalDecision)
