@@ -1,0 +1,9 @@
+@keywords a.
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rein: <http://dig.csail.mit.edu/2005/09/rein/network#> .
+@prefix jw: <https://jwerbrouck.solid.community/profile/card#> .
+
+Jeroen-Req a rein:Request;
+  rein:requester jw:me;
+  rein:resource <http://example.org/conf/pics/dinner-group.jpg>.

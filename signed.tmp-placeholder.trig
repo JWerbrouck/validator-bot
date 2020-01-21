@@ -1,0 +1,34 @@
+@prefix this: <http://project1.org/certificates/RA2I1Zndg2izNCD4jnufxO7px5JqTJKiqYoyIEOmGBR4c> .
+@prefix sub: <http://project1.org/certificates/RA2I1Zndg2izNCD4jnufxO7px5JqTJKiqYoyIEOmGBR4c#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix jw: <https://jwerbrouck.solid.community/profile/card#> .
+@prefix cs: <http://consolid.org/ontology/cs#> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+
+sub:Head {
+  this: np:hasAssertion sub:assertion;
+    np:hasProvenance sub:provenance;
+    np:hasPublicationInfo sub:pubinfo;
+    a np:Nanopublication .
+}
+
+sub:assertion {
+  jw:me a cs:Engineer .
+}
+
+sub:provenance {
+  sub:assertion pav:createdBy <https://consolidproject1.inrupt.net> .
+}
+
+sub:pubinfo {
+  sub:sig npx:hasAlgorithm "RSA";
+    npx:hasPublicKey "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCjbaGKeQRhp5k985kS45dGZbnAraRzT2JqkneWwftOqvwDhVISkbjPie+CIBMzYUiaF253Oky/QpSVAojgX9WEVHRlSPksut4y2zzZ6JvuC9gZNpI4ob0cEc25cfMIixJwHehoEHRqVD6ZPc7oyGjpNWYWAgghKJZ7FjTHf4sltwIDAQAB";
+    npx:hasSignature "hLP0UaDqlcdSwpP/9kCLuUVyYzZZW4mrW+XyIOEmJXeDXqRaNIFf7hS6isI8fiRG7WxSCq88Zqw2pUSE628pczrIkDiFJLF+oEhnzKCXXnNJXGN8eYLwtuo6nyrtEGce4UHC6QRKQWSPlVy3+N2ZuXPCuAVkqyFuMAPYC+UMRrM=";
+    npx:hasSignatureTarget this: .
+  
+  this: dc:created "2020-01-21T14:20:06.784Z"^^xsd:dateTime;
+    pav:createdBy <https://consolidproject1.inrupt.net> .
+}

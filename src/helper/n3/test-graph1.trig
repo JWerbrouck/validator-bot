@@ -1,0 +1,35 @@
+@prefix this: <http://jeroen.org/example-nanopub/RA3IomqjDm1S87kwiS0to15CD_9SwcVbZfozC5DOO39pA> .
+@prefix sub: <http://jeroen.org/example-nanopub/RA3IomqjDm1S87kwiS0to15CD_9SwcVbZfozC5DOO39pA#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix jw: <https://jwerbrouck.solid.community/profile/card#> .
+@prefix cs: <http://consolid.org/ontology/cs#> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+
+sub:Head {
+  this: np:hasAssertion sub:assertion;
+    np:hasProvenance sub:provenance;
+    np:hasPublicationInfo sub:pubinfo;
+    a np:Nanopublication .
+}
+
+sub:assertion {
+  jw:me a cs:Architect .
+}
+
+sub:provenance {
+  sub:assertion pav:createdBy jw:me .
+}
+
+sub:pubinfo {
+  sub:sig npx:hasAlgorithm "RSA";
+    npx:hasPublicKey "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCjbaGKeQRhp5k985kS45dGZbnAraRzT2JqkneWwftOqvwDhVISkbjPie+CIBMzYUiaF253Oky/QpSVAojgX9WEVHRlSPksut4y2zzZ6JvuC9gZNpI4ob0cEc25cfMIixJwHehoEHRqVD6ZPc7oyGjpNWYWAgghKJZ7FjTHf4sltwIDAQAB";
+    npx:hasSignature "SN/wpFoFdV3OggAIDSSALaaMjrsHyRwWFCwyn7kw1INQyK8kJLhQ17J7Z1hVsn1WSq88DAINhnCuHotHtd+5nmyOWRg43Qf0N4OA/12phf2jkSAqJNbcNOYKMwAP7zIP4KllUtd2NbXkzDrmNP6u+TRr/hXFFb2sRfO7C/ZBND4=";
+    npx:hasSignatureTarget this: .
+  
+  this: dc:created "2020-01-20T12:14:06.041Z"^^xsd:dateTime;
+    pav:createdBy jw:me .
+}
+

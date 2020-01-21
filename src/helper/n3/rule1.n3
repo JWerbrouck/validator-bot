@@ -1,0 +1,29 @@
+# conference policy: Only people who registered for the conference can see pictures taken at the conf
+# Usage: cwm http://dig.csail.mit.edu/2006/Papers/TPLP/example/policy-group.n3 http://dig.csail.mit.edu/2006/Papers/TPLP/example/judy-req.n3 --think --filter="http://dig.csail.mit.edu/2006/Papers/TPLP/example/policy-group.n3"
+
+# $Date: 2007-09-10 19:46:30 -0400 (Mon, 10 Sep 2007) $
+# $Revision: 4023 $
+# $Author: lkagal $
+
+@keywords a, is, of.
+
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix crypto: <http://www.w3.org/2000/10/swap/crypto#> .
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rein: <http://dig.csail.mit.edu/2005/09/rein/network#> .
+@prefix session: <http://redfoot.net/2005/session#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix policy: <http://example.org/policy#> .
+@prefix cs: <http://consolid.org/ontology/cs#> .
+
+@prefix conf: <http://example.org/conf#> .
+@prefix : <http://dig.csail.mit.edu/2006/Papers/TPLP/example/exconf#> .
+
+@forAll ACT, C.
+
+{ <https://jwerbrouck.solid.community/public/certificates/RAPWP35GZJW10EfM-5iVL5lK9P6XhOf01Ju0eg8Dso3w8.trig> log:semantics C.
+  C log:includes { sub:assertion {ACT a cs:Architect .} }.
+} => { ACT policy:permitted-to-view PHOTO }.
+
+#ends 

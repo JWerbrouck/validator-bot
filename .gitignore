@@ -1,2 +1,4 @@
 node_modules
+key_rsa
+*.pub
 *.env

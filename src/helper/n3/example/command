@@ -1,0 +1,1 @@
+cwm ./src/helper/n3/example/data.n3 ./src/helper/n3/example/rule1.n3 --think --filter="./src/helper/n3/example/rule1.n3"

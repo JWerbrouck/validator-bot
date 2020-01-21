@@ -1,0 +1,27 @@
+@prefix : <http://example.org/example-nanopub/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix ex: <http://example.org/> .
+
+:Head {
+   : np:hasAssertion :assertion ;
+     np:hasProvenance :provenance ;
+     np:hasPublicationInfo :pubinfo ;
+     a np:Nanopublication .
+}
+
+:assertion {
+   ex:something ex:relates-to ex:something .
+}
+
+:provenance {
+   :assertion pav:createdBy <http://jwerbroucktest.org/123456#me> .
+}
+
+:pubinfo {
+   : dc:created "2020-01-16T18:19:23.315+01:00"^^xsd:dateTime ;
+     pav:createdBy <http://jwerbroucktest.org/123456#me> .
+}

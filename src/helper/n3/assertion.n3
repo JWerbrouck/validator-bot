@@ -1,0 +1,4 @@
+@prefix jw: <https://jwerbrouck.solid.community/profile/card#> .
+@prefix cs: <http://consolid.org/ontology/cs#> .
+
+jw:me a cs:Architect .

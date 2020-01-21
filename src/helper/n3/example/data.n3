@@ -1,0 +1,52 @@
+# $Date: 2007-09-10 19:46:30 -0400 (Mon, 10 Sep 2007) $
+# $Revision: 4023 $
+# $Author: lkagal $
+
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix air: <http://dig.csail.mit.edu/TAMI/2007/amord/air#> .
+
+@prefix : <http://dig.csail.mit.edu/data#> .
+@prefix dig: <http://dig.csail.mit.edu/data#> .
+    
+:DIG a foaf:Organization;
+      rdfs:label "DIG";
+      foaf:homepage <./>;
+      foaf:logo <i/logo.png>;
+      foaf:member :MemberList;
+      foaf:name  "Decentralized Information Group" .
+
+:DIG :owns <http://dig.csail.mit.edu/proposals/nsf.tex/>.
+
+:MemberList a rdf:List;
+	rdf:first <http://dig.csail.mit.edu/People/RRS>;
+	rdf:rest
+            ( <http://www.w3.org/People/djweitzner/foaf#djw>
+              <http://people.apache.org/~oshani/foaf.rdf>
+              <http://csail.mit.edu/~lkagal/foaf#me>
+              <http://swiss.csail.mit.edu/users/cph/foaf.rdf#cph>
+              <http://www.w3.org/People/Berners-Lee/card#i>
+             ).
+
+<http://people.apache.org/~oshani/foaf.rdf> a foaf:Person;
+	foaf:openid <http://auth.mit.edu/oshani>.
+
+<http://dig.csail.mit.edu/People/RRS> a foaf:Person;
+	foaf:openid <http://csail.mit.edu/rrs/>;
+	foaf:knows <http://dig.csail.mit.edu/People/yosi#YES>.
+
+<http://dig.csail.mit.edu/People/yosi#YES> a foaf:Person;
+	foaf:openid <http://auth.mit.edu/syosi>.
+
+<http://people.apache.org/~oshani/foaf.rdf> air:in :MemberList.
+<http://www.w3.org/People/djweitzner/foaf#djw> air:in :MemberList.
+<http://csail.mit.edu/~lkagal/foaf#me> air:in :MemberList.
+<http://dig.csail.mit.edu/People/RRS> air:in :MemberList.
+<http://www.w3.org/People/Connolly/#me> air:notin :MemberList.
+
+:Req1 a air:Request;
+   foaf:openid <http://auth.mit.edu/oshani>;
+   air:resource <http://dig.csail.mit.edu/proposals/nsf.tex/>.
+
+#ends

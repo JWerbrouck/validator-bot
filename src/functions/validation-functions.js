@@ -27,7 +27,7 @@ exports.fetchResource = async (req, res) => {
     let loginValidation = await solid.auth.login(visitor).catch(e => res.json({ error: "Error logging in for the visitor: " + e }))
 
     // login with the credentials of the bot
-    // make sure OpenSSL is installed and added to the %PATH%
+    // make sure OpenSSL is installed and added to the %PATH% (C:\Program Files\OpenSSL-Win64\bin)
     let login = await solid.auth.login(project).catch(e => res.json({ error: "Error logging in for the bot: " + e }))
 
     // get ACL of the requested file
