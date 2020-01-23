@@ -22,14 +22,15 @@ exports.signNanopublication = async (req, res) => {
         return res.status(400).json({message: nanopublication[1]})
     }
 
-    const signedDoc = await sign(nanopublication[0])
-
-    res.sendFile('signed.tmp-placeholder.trig', { root: process.cwd() }, () => {
-        deleteFile(process.cwd() + '/signed.tmp-placeholder.trig')
-        deleteFile(process.cwd() + '/tmp-placeholder.trig')
-    })
-        
-
+    const signedDoc = sign(nanopublication[0])
+        .then(() => {
+            return res.sendFile('signed.tmp-placeholder.trig', { root: process.cwd() }, () => {
+                deleteFile(process.cwd() + '/signed.tmp-placeholder.trig')
+                deleteFile(process.cwd() + '/tmp-placeholder.trig')
+            })
+        }).catch((e) => {
+            return res.status(400).json({message: e})
+        })      
 }
 
 const sign = async (np) => {
@@ -38,7 +39,13 @@ const sign = async (np) => {
     const fullPath = fs.openSync(filePath, 'w')
     fs.writeFileSync(fullPath, np)
 
-    let signed = await executeChildProcess(fileName)
+    signed = executeChildProcess(fileName)
+        .then((signedNp) => {
+            return [signedNp, null]
+        }).catch((e) => {
+            return [null, e]
+        })
+
     return signed
 }
 
