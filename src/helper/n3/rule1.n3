@@ -16,14 +16,16 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix policy: <http://example.org/policy#> .
 @prefix cs: <http://consolid.org/ontology/cs#> .
-
+@prefix np: <http://www.nanopub.org/nschema#> .
 @prefix conf: <http://example.org/conf#> .
 @prefix : <http://dig.csail.mit.edu/2006/Papers/TPLP/example/exconf#> .
+@prefix this: <http://project1.org/certificates/RAPWP35GZJW10EfM-5iVL5lK9P6XhOf01Ju0eg8Dso3w8> .
 
-@forAll ACT, C.
+@forAll ACT, C, NP, AS.
 
-{ <https://jwerbrouck.solid.community/public/certificates/RAPWP35GZJW10EfM-5iVL5lK9P6XhOf01Ju0eg8Dso3w8.trig> log:semantics C.
-  C log:includes { sub:assertion {ACT a cs:Architect .} }.
-} => { ACT policy:permitted-to-view PHOTO }.
+{ NP np:hasAssertion AS.
+    AS log:semantics C.
+    C log:includes {ACT a cs:Architect}
+} => { ACT policy:permitted-to-view ACT }.
 
 #ends 

@@ -1,4 +1,4 @@
-const { extractFormData } = require('../helper/helperFunctions');
+const { extractFormData, controlCreds, deleteFile } = require('../helper/helperFunctions');
 const {createNanoPublication} = require('../helper/nanopub/nanopub_template')
 const exec = require('child_process').exec;
 const tmp = require('tmp');
@@ -6,12 +6,30 @@ const fs = require('fs');
 const path = require('path');
 
 exports.signNanopublication = async (req, res) => {
-    console.log('extracting Form Data 123')
+    const creds = controlCreds(req.headers.authorization)
+    if (!creds) {
+        return res.status(403).json({error: 'Unauthorized'});
+    }
+    console.log("Authenticated")
     const data = await extractFormData(req)
-    // const verifyLogin = verifyLogin()
-    const nanopublication = createNanoPublication(data.assertion, process.env.WEBID_BASE, data.baseUri)
-    const signedDoc = await sign(nanopublication)
-    res.json({ signedDoc })
+
+    if (!data[0]) {
+        return res.status(400).json({error: data[1]});
+    }
+
+    const nanopublication = createNanoPublication(data[0].assertion, process.env.WEBID_BASE, data[0].baseUri)
+    if (!nanopublication[0]) {
+        return res.status(400).json({message: nanopublication[1]})
+    }
+
+    const signedDoc = await sign(nanopublication[0])
+
+    res.sendFile('signed.tmp-placeholder.trig', { root: process.cwd() }, () => {
+        deleteFile(process.cwd() + '/signed.tmp-placeholder.trig')
+        deleteFile(process.cwd() + '/tmp-placeholder.trig')
+    })
+        
+
 }
 
 const sign = async (np) => {
@@ -35,22 +53,6 @@ const executeChildProcess = (shortPath) => {
                 // reconstructing the path to the temporary signed nanopublication
                 const signedPath = './' + 'signed.' + shortPath
                 var signedBuffer = new Buffer(fs.readFileSync(signedPath, 'utf8'))
-
-                // delete the temporary signed file (stored in the Buffer now)
-                // try {
-                //     fs.unlinkSync(signedPath)
-                //     //file removed
-                // } catch (err) {
-                //     console.error(err)
-                // }
-
-                // try {
-                //     fs.unlinkSync(shortPath)
-                //     //file removed
-                // } catch (err) {
-                //     console.error(err)
-                // }
-
                 resolve(signedBuffer.toString())
             }
         })

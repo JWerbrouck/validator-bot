@@ -4,7 +4,7 @@ const SHACLValidator = require('shacl-js')
 const Base64 = require('js-base64').Base64;
 const { example } = require('../helper/example.js')
 const {RDF, CS, ACL} = require('../helper/namespaces')
-
+const me = require('../helper/me')
 const project = {
     idp: process.env.SOLID_IDP,
     username: process.env.SOLID_USERNAME,
