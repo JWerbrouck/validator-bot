@@ -6,10 +6,18 @@ const fs = require('fs');
 const path = require('path');
 
 exports.signNanopublication = async (req, res) => {
-    const creds = controlCreds(req.headers.authorization)
-    if (!creds) {
-        return res.status(403).json({error: 'Unauthorized'});
-    }
+    // const creds = await controlCreds(req.headers.authorization)
+    // if (creds[0] && creds[2]) {
+    //     return res.status(403).json({error: 'Login matches with login of the owner but was unable to login to the service provider.'});
+    // } else if (!creds[0]) {
+    //     if (creds[2]) {
+    //         console.log(creds)
+    //         return res.status(403).json({error: "Unauthorized. Could not login: No user found for that username - password combination"});
+    //     } else {
+    //         return res.status(403).json({error: 'Unauthorized. Login does not match with login of the owner'});
+    //     }
+    // }
+    
     console.log("Authenticated")
     const data = await extractFormData(req)
 

@@ -2,6 +2,7 @@ const Busboy = require('busboy')
 const {me} = require('../helper/me')
 const _ = require('lodash')
 const fs = require('fs');
+const solid = { auth: require('solid-auth-cli') };
 
 // exports.extractFormData = async (req) => {
 //     var busboy = new Busboy({ headers: req.headers });
@@ -80,11 +81,24 @@ exports.controlCreds = (auth) => {
     idp += i + '.'
   })
   idp = idp.substring(0, idp.length - 1) + '/'
-  const creds = {idp, un, pw}
+  const creds = {idp, username: un, password: pw}
   if (_.isEqual(creds, me)) {
-    return true
+    return solid.auth.login(creds)
+      .then((res) => {
+        return [true, creds, null, res]
+      })
+      .catch((e) => {
+        return [true, creds, e]
+      })
   } else {
-    return false
+    return solid.auth.login(creds)
+      .then((res) => {
+        creds["webId"] = res.webId
+        return [false, creds, false, res]
+      })
+      .catch((e) => {
+        return [false, creds, e]
+      })
   }
 }
 
