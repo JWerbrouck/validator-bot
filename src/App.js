@@ -4,7 +4,8 @@ const fs = require('fs')
 const {checkPermissions} = require('./functions/validation-functions')
 const {signNanopublication} = require('./functions/signer-functions')
 const bodyParser = require('body-parser')
-const onlyOwner = require('./middleware/onlyOwner')
+const {checkLogin, onlyOwner, justLogin} = require('./middleware/authMiddleware')
+const {checkACL} = require('./middleware/fetchMiddleware')
 
 
 const privateKey = fs.readFileSync(process.cwd() + '/config/server.key', 'utf8')
@@ -15,8 +16,9 @@ const app = express()
 const port = process.env.PORT
 app.use(bodyParser.json())
 
-app.get('/acl', checkPermissions)
-app.post('/sign', onlyOwner, signNanopublication)
+app.get('/test', justLogin)
+app.get('/acl', checkLogin, checkACL)
+app.post('/sign', checkLogin, onlyOwner, signNanopublication)
 
 const httpsServer = https.createServer(credentials, app)
 
