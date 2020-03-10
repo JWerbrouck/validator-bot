@@ -26,7 +26,6 @@ exports.checkLogin = (req, res, next) => {
         return res.status(500).json({error: 'Credentials match, but an error occurred when logging in to the service provider'})
       })
   } else {
-    console.log(creds)
     solid.auth.login(creds)
       .then((authRes) => {
         req.webId = authRes.webId
@@ -80,7 +79,6 @@ exports.justLogin = async (req, res) => {
   // }
 
   let login = await solid.auth.login(creds)
-  console.log(login)
   return res.json({login})
 }
  

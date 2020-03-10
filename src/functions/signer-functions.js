@@ -33,8 +33,8 @@ exports.signNanopublication = async (req, res) => {
     const signedDoc = sign(nanopublication[0])
         .then(() => {
             return res.sendFile('signed.tmp-placeholder.trig', { root: process.cwd() }, () => {
-                deleteFile(process.cwd() + '/signed.tmp-placeholder.trig')
-                deleteFile(process.cwd() + '/tmp-placeholder.trig')
+                // deleteFile(process.cwd() + '/signed.tmp-placeholder.trig')
+                // deleteFile(process.cwd() + '/tmp-placeholder.trig')
             })
         }).catch((e) => {
             return res.status(400).json({message: e})
@@ -47,20 +47,21 @@ const sign = async (np) => {
     const fullPath = fs.openSync(filePath, 'w')
     fs.writeFileSync(fullPath, np)
 
-    signed = executeChildProcess(fileName)
-        .then((signedNp) => {
-            return [signedNp, null]
-        }).catch((e) => {
-            return [null, e]
-        })
-
-    return signed
+    try {
+        signed = await executeChildProcess(fileName)
+        console.log({signed})
+        return signed
+    } catch (error) {
+        return error
+    }
 }
 
 const executeChildProcess = (shortPath) => {
+    console.log('executing child')
     return new Promise((resolve, reject) => {
         exec('bash ./src/helper/signer/np.sh sign -a RSA  -k ./config/key_rsa -v ./' + shortPath, function (err, stdout, stderr) {
             if (stderr) {
+                console.log(stderr)
                 reject(stderr)
             } else {
                 console.log('done', stdout)
@@ -68,8 +69,9 @@ const executeChildProcess = (shortPath) => {
                 // reconstructing the path to the temporary signed nanopublication
                 const signedPath = './' + 'signed.' + shortPath
                 var signedBuffer = new Buffer(fs.readFileSync(signedPath, 'utf8'))
+                console.log(signedBuffer.toString())
                 resolve(signedBuffer.toString())
             }
         })
     })
-}
+} 

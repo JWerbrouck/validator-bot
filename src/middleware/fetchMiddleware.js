@@ -22,6 +22,7 @@ exports.checkACL = async (req, res, next) => {
 
 const fetchACL = async (resource, store) => {
     return new Promise (async (resolve, reject) => {
+        // change to findClosestACL (cf Solid Server)
         const resourceACL = resource + '.acl'
         const ACLdocument = await solid.auth.fetch(resourceACL).catch(e => reject(e))
         const ACLtext = await ACLdocument.text().catch(e => reject(e))

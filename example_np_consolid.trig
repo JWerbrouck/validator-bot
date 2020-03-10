@@ -1,0 +1,35 @@
+@prefix this: <https://exampleproject.org/nanopublications#RAkeXrc52InKjGSoRWsG2Wr8f3IXa7m__To3-yFh9rB5I> .
+@prefix sub: <https://exampleproject.org/nanopublications#RAkeXrc52InKjGSoRWsG2Wr8f3IXa7m__To3-yFh9rB5I.> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix proj: <https://exampleproject.consolid.org/profile/card#> .
+@prefix cs: <http://consolid.org/ontology/cs#> .
+@prefix alice: <https://alice.engineers.com/profile/card#> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+
+sub:Head {
+  this: np:hasAssertion sub:assertion;
+    np:hasProvenance sub:provenance;
+    np:hasPublicationInfo sub:pubinfo;
+    a np:Nanopublication .
+}
+
+sub:assertion {
+  proj:me cs:hasLeadingEngineer alice:me .
+}
+
+sub:provenance {
+  sub:assertion pav:createdBy proj:me .
+}
+
+sub:pubinfo {
+  this: dc:created "2020-03-10T14:35:50.187Z"^^xsd:dateTime;
+    pav:createdBy proj:me .
+  
+  sub:sig npx:hasAlgorithm "RSA";
+    npx:hasPublicKey "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCjbaGKeQRhp5k985kS45dGZbnAraRzT2JqkneWwftOqvwDhVISkbjPie+CIBMzYUiaF253Oky/QpSVAojgX9WEVHRlSPksut4y2zzZ6JvuC9gZNpI4ob0cEc25cfMIixJwHehoEHRqVD6ZPc7oyGjpNWYWAgghKJZ7FjTHf4sltwIDAQAB";
+    npx:hasSignature "NqAvwSnIOLHGaexE1TOzDSQ/hDAL7hgr8wW1voxlnK0N1gA3zfT9a2jH77W3KIEeNDhRV88aU3wGGmBpLTzfaxj+qSRfQ+Wwi88v64Rdu8DHcVPK0KZZyVuTHmSkR3mRgTdhJRno1SaXIdZsF3wcZLT+oZUlldFBeYrC0HMFH38=";
+    npx:hasSignatureTarget this: .
+}

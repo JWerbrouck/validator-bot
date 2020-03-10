@@ -8,8 +8,8 @@ const {checkLogin, onlyOwner, justLogin} = require('./middleware/authMiddleware'
 const {checkACL} = require('./middleware/fetchMiddleware')
 
 
-const privateKey = fs.readFileSync(process.cwd() + '/config/server.key', 'utf8')
-const certificate = fs.readFileSync(process.cwd() + '/config/server.crt', 'utf8')
+const privateKey = fs.readFileSync(process.cwd() + '/config/mkcert-key.key', 'utf8')
+const certificate = fs.readFileSync(process.cwd() + '/config/mkcert-cert.crt', 'utf8')
 const credentials = {key: privateKey, cert: certificate}
 
 const app = express()
@@ -18,6 +18,8 @@ app.use(bodyParser.json())
 
 app.get('/test', justLogin)
 app.get('/acl', checkLogin, checkACL)
+
+// formdata: assertion: file(assertion), baseUri: uri
 app.post('/sign', checkLogin, onlyOwner, signNanopublication)
 
 const httpsServer = https.createServer(credentials, app)
