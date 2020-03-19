@@ -1,11 +1,11 @@
 # validator-bot
 A prototype server for signing nanopublications (http://nanopub.org/wordpress/) using your webID. 
-The current version relies on a private RSA key that needs to be stored in a secure way, to be placed in a to-be-created folder `config' as `key\_rsa', containing only the key itself. 
-Also, a `dev.env'\footnote{\url{https://www.npmjs.com/package/env-cmd}} file containing the following environment variables should be added in this `config' directory: 
+The current version relies on a private RSA key that needs to be stored in a secure way, to be placed in a to-be-created folder 'config' as 'key\_rsa', containing only the key itself. 
+Also, a 'dev.env'\footnote{\url{https://www.npmjs.com/package/env-cmd}} file containing the following environment variables should be added in this 'config' directory: 
 
 * PORT: the port to expose the server;
 * SOLID\_IDP: the identity provider of your WebID (e.g. https://inrupt.net/);
-* WEBID\_BASE: your WebID without `profile/card\#me';
+* WEBID\_BASE: your WebID without 'profile/card\#me';
 * SOLID\_USERNAME: your Solid username (not your WebID);
 * SOLID\_PASSWORD: your Solid password.
 
